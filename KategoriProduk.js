@@ -4,7 +4,7 @@ function setToken(externalToken) {
   token = externalToken;
 }
 
-window.setToken = setToken;
+window.setToken = token;
 
 const select = document.getElementById("kategoriSelect");
 const grid = document.getElementById("subGrid");
