@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hasil Pencarian</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      padding: 20px;
+      background: #fff;
+    }
+    .produk {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 16px;
+    }
+    .produk-item {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      text-align: center;
+      background: #fafafa;
+      padding: 10px;
+      transition: box-shadow 0.2s;
+    }
+    .produk-item:hover {
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    .produk-item img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+    }
+    .produk-item p {
+      margin: 8px 0 0;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  </style>
+</head>
+<body>
+
+<h4>Hasil Pencarian: <span id="keyword"></span></h4>
+<div class="produk" id="hasilContainer"></div>
+
+<script>
+  const hasil = JSON.parse(localStorage.getItem("hasilPencarianTerakhir") || "[]");
+  const keyword = localStorage.getItem("kataKunciTerakhir") || "";
+  document.getElementById("keyword").textContent = keyword;
+
+  const container = document.getElementById("hasilContainer");
+
+  hasil.forEach(p => {
+    const div = document.createElement("div");
+    div.className = "produk-item";
+    div.innerHTML = `
+      <a href="${p.url_produk}" target="_blank">
+        <img src="${p.url_gambar_produk}" alt="${p.nama_produk}">
+        <p>${p.nama_produk}</p>
+      </a>
+    `;
+    container.appendChild(div);
+  });
+</script>
+
+</body>
+</html>
